@@ -1,15 +1,13 @@
 class Key {
     private signature = Math.random();
     public getSignature(): number {
-        // console.log(this.signature);
         return this.signature;
   }
 }
 
 class Person {
-    constructor(private key: Key, public name: string) { }
+    constructor(private key: Key) { }
     public getKey(): Key {
-        // console.log(this.key);
         return this.key;
     }
 }
@@ -29,7 +27,7 @@ abstract class House {
 
 class MyHouse extends House {
     public  openDoor(personKey: Key): void{
-    personKey === this.key ? this.door = true : this.door = false
+        this.door = this.key.getSignature === personKey.getSignature
     }
 }
 
@@ -41,7 +39,7 @@ class MyHouse extends House {
 const key = new Key();
 
 const house = new MyHouse(key);
-const person = new Person(key, "Bob");
+const person = new Person(key);
 
 house.openDoor(person.getKey());
 
